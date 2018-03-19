@@ -1,0 +1,72 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        applicationId "com.szhrnet.dotcom"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.appVersionCode
+        versionName rootProject.ext.appVersionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+//    signingConfigs {
+//        release {
+//            keyAlias 'dotcom'
+//            keyPassword 'dotcomrelease'
+//            storeFile file('../dotcom_release_keystore.jks')
+//            storePassword 'dotcomrelease'
+//        }
+//        debug {
+//            keyAlias 'dotcom'
+//            keyPassword 'dotcomdebug'
+//            storeFile file('../dotcom_debug_keystore.jks')
+//            storePassword 'dotcomdebug'
+//        }
+//    }
+
+    buildTypes {
+        release {
+            //资源文件压缩
+            shrinkResources true
+            //代码开启混淆
+            minifyEnabled true
+            //混淆文件位置： 第一个：系统默认混淆文件。第二个：自定义混淆文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.release
+        }
+        debug {
+            //资源文件压缩
+            shrinkResources false
+            //代码开启混淆
+            minifyEnabled false
+            //混淆文件位置： 第一个：系统默认混淆文件。第二个：自定义混淆文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //Debug版本包名
+            applicationIdSuffix ".debug"
+            signingConfig signingConfigs.debug
+        }
+    }
+}
+
+dependencies {
+
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    //noinspection GradleCompatible
+    compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support.constraint:constraint-layout:$rootProject.ext.constraintVersion"
+    testCompile "junit:junit:$rootProject.ext.junitVersion"
+    compile project(':library')
+    compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
+    compile "com.squareup.picasso:picasso:$rootProject.ext.picassoVersion"
+    compile "com.google.code.gson:gson:$rootProject.ext.gsonVersion"
+    compile "com.squareup.okhttp3:okhttp:$rootProject.ext.okhttpVersion"
+    compile "com.zhy:okhttputils:$rootProject.ext.okhttputilsVersion"
+//    compile 'com.lzy.widget:imagepicker:$rootProject.ext.imagepickerVersion'
+    compile 'com.lzy.widget:imagepicker:0.5.5'
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="table_cell">
+    <attr format="boolean" name="table_state_choose"/>
+
+  </declare-styleable>
+  <declare-styleable name="TableView">
+    <attr format="integer" name="tableView_columnCount"/>
+    <attr format="integer" name="tableView_headerElevation"/>
+    <attr format="color" name="tableView_headerColor"/>
+    <attr format="boolean" name="tableView_fixHeight"/>
+  </declare-styleable>
+</resources>

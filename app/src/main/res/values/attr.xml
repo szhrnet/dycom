@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--自定义title-->
+    <declare-styleable name="E_TitleBar_View">
+        <!-- 标题文字 -->
+        <attr name="titlebar_text" format="string" />
+        <!--左边文字-->
+        <attr name="left_text" format="string" />
+        <!--右边文字-->
+        <attr name="right_text" format="string" />
+        <!---->
+    </declare-styleable>
+</resources>
