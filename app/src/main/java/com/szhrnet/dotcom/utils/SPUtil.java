@@ -72,16 +72,10 @@ public class SPUtil {
 
     Editor edit = ctx.getSharedPreferences(config, 0).edit();
     edit.remove(StringConstant.TOKEN);
-    edit.remove(StringConstant.NEW_INFO);
-    edit.remove(StringConstant.USER_IMAGE_URL);
-    edit.remove(StringConstant.BALANCE);
     edit.remove(StringConstant.KEY);
     edit.remove(StringConstant.LOGIN);
     edit.remove(StringConstant.FUND_PSW);
-    edit.remove(StringConstant.KEY_TIME);
     edit.remove(StringConstant.BIND_BANK);
-    edit.remove(StringConstant.USER_PROXY_REGIST);
-    edit.remove(StringConstant.TEMPUSER);
     edit.commit();
   }
 }

@@ -3,6 +3,7 @@ package com.szhrnet.dotcom.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.shizhefei.fragment.LazyFragment;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.szhrnet.dotcom.R;
 import com.szhrnet.dotcom.fragment.AssortmentFragment;
@@ -60,6 +62,9 @@ public class HomePageAdapter extends IndicatorViewPager.IndicatorFragmentPagerAd
 
     @Override
     public Fragment getFragmentForPage(int position) {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(LazyFragment.INTENT_BOOLEAN_LAZYLOAD, false);
+        bundle.putString("TAG_INDEX", String.valueOf(position));
         Fragment fragment = null;
         switch (position) {
             case 0:
@@ -75,6 +80,7 @@ public class HomePageAdapter extends IndicatorViewPager.IndicatorFragmentPagerAd
                 fragment = new CenterFragment();
                 break;
         }
+        fragment.setArguments(bundle);
         return fragment;
     }
 }
