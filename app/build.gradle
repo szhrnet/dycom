@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
-
+configurations.all {//解决导入Glide的问题
+    resolutionStrategy.force 'com.android.support:support-annotations:23.1.0'
+}
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -69,4 +71,6 @@ dependencies {
     compile "com.zhy:okhttputils:$rootProject.ext.okhttputilsVersion"
 //    compile 'com.lzy.widget:imagepicker:$rootProject.ext.imagepickerVersion'
     compile 'com.lzy.widget:imagepicker:0.5.5'
+    //Glide
+    compile 'com.github.bumptech.glide:glide:4.3.0'
 }
