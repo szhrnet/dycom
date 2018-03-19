@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.gc.caiba.MyApplication;
-import com.gc.caiba.R;
-import com.gc.caiba.utils.DensityUtils;
+import com.szhrnet.dotcom.R;
+import com.szhrnet.dotcom.utils.ViewUtils;
+
 
 /**
  * Created by hello on 2017/9/8.
@@ -47,19 +47,19 @@ public class DialogCustom extends BaseDialog implements View.OnClickListener {
     ViewUtils.hide(tv_cancel);
     ViewUtils.hide(tv_confirm);
 
-    ViewUtils.setBackground(findViewById(R.id.ll_root),
-        CommonDrawableHelper.commonBgCustomColorCorner(ThemeHelper.getWhiteColor(),
-            DensityUtils.dp2px(5)));
-    setTextTitle("提示").setTextColorTitle(ThemeHelper.getBlackColor())
-        .setTextConfirm("确定")
-        .setTextColorConfirm(ThemeHelper.getPrimaryColor())
-        .setTextCancel("取消")
-        .setTextColorCancel(ThemeHelper.getBlackColor())
-        .setTextColorTips(ThemeHelper.getBlackColor());
-
-    int padding = DensityUtils.dp2px(50);
-    paddingLeft(padding);
-    paddingRight(padding);
+//    ViewUtils.setBackground(findViewById(R.id.ll_root),
+//        CommonDrawableHelper.commonBgCustomColorCorner(ThemeHelper.getWhiteColor(),
+//            DensityUtils.dp2px(5)));
+//    setTextTitle("提示").setTextColorTitle(ThemeHelper.getBlackColor())
+//        .setTextConfirm("确定")
+//        .setTextColorConfirm(ThemeHelper.getPrimaryColor())
+//        .setTextCancel("取消")
+//        .setTextColorCancel(ThemeHelper.getBlackColor())
+//        .setTextColorTips(ThemeHelper.getBlackColor());
+//
+//    int padding = DensityUtils.dp2px(50);
+//    paddingLeft(padding);
+//    paddingRight(padding);
   }
 
   public DialogCustom setCustomView(View view) {
@@ -181,7 +181,6 @@ public class DialogCustom extends BaseDialog implements View.OnClickListener {
   }
 
   @Override public void onClick(View v) {
-    MyApplication.playClickVoice();
     if (v.getId() == R.id.dialog_custom_tv_cancel) {
       super.dismiss();
       if (dialogCustomListener != null) dialogCustomListener.onCancel(v, this);

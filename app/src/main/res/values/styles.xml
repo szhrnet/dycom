@@ -24,4 +24,17 @@
         <!--模糊背景-->
     </style>
 
+    <!--线条样式-->
+    <style name="horviewstyle">
+        <item name="android:layout_height">1px</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/divider</item>
+    </style>
+
+    <style name="verviewstyle">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/divider</item>
+    </style>
+
 </resources>

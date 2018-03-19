@@ -10,4 +10,7 @@
 
     //主背景色
     <color name="main_bg">#F0F0F0</color>
+
+    //分割线
+    <color name="divider">#eeeeee</color>
 </resources>
