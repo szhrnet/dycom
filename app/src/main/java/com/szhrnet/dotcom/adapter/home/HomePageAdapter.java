@@ -1,4 +1,4 @@
-package com.szhrnet.dotcom.adapter;
+package com.szhrnet.dotcom.adapter.home;
 
 import android.app.Activity;
 import android.content.Context;

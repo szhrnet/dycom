@@ -51,6 +51,11 @@ public class SplashActivity extends BaseActivity {
     }
 
     @Override
+    protected boolean isShowStatusBar() {
+        return false;
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         removeRunnable();

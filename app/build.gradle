@@ -14,20 +14,20 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
-//    signingConfigs {
-//        release {
-//            keyAlias 'dotcom'
-//            keyPassword 'dotcomrelease'
-//            storeFile file('../dotcom_release_keystore.jks')
-//            storePassword 'dotcomrelease'
-//        }
+    signingConfigs {
+        release {
+            keyAlias 'dotcom'
+            keyPassword 'dotcomrelease'
+            storeFile file('../dotcom_release_keystore.jks')
+            storePassword 'dotcomrelease'
+        }
 //        debug {
 //            keyAlias 'dotcom'
 //            keyPassword 'dotcomdebug'
 //            storeFile file('../dotcom_debug_keystore.jks')
 //            storePassword 'dotcomdebug'
 //        }
-//    }
+    }
 
     buildTypes {
         release {
@@ -37,7 +37,7 @@ android {
             minifyEnabled true
             //混淆文件位置： 第一个：系统默认混淆文件。第二个：自定义混淆文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
         }
         debug {
             //资源文件压缩
@@ -65,12 +65,12 @@ dependencies {
     testCompile "junit:junit:$rootProject.ext.junitVersion"
     compile project(':library')
     compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
-    compile "com.squareup.picasso:picasso:$rootProject.ext.picassoVersion"
     compile "com.google.code.gson:gson:$rootProject.ext.gsonVersion"
     compile "com.squareup.okhttp3:okhttp:$rootProject.ext.okhttpVersion"
     compile "com.zhy:okhttputils:$rootProject.ext.okhttputilsVersion"
-//    compile 'com.lzy.widget:imagepicker:$rootProject.ext.imagepickerVersion'
-    compile 'com.lzy.widget:imagepicker:0.5.5'
+    compile "com.lzy.widget:imagepicker:$rootProject.ext.imagepickerVersion"
     //Glide
-    compile 'com.github.bumptech.glide:glide:4.3.0'
+    compile "com.github.bumptech.glide:glide:$rootProject.ext.glideVersion"
+    //流式布局
+    compile 'com.hyman:flowlayout-lib:1.1.2'
 }

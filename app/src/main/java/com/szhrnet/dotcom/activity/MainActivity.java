@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,15 +21,15 @@ import android.widget.TextView;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.viewpager.SViewPager;
-import com.szhrnet.dotcom.MyApplication;
 import com.szhrnet.dotcom.R;
-import com.szhrnet.dotcom.adapter.HomePageAdapter;
+import com.szhrnet.dotcom.adapter.home.HomePageAdapter;
 import com.szhrnet.dotcom.constant.StringConstant;
 import com.szhrnet.dotcom.service.DownloadService;
 import com.szhrnet.dotcom.utils.MyToast;
 import com.szhrnet.dotcom.utils.OkHttpCustomUtil;
 import com.szhrnet.dotcom.utils.PermissionUtils;
 import com.szhrnet.dotcom.utils.SP_System_Util;
+import com.szhrnet.dotcom.utils.Utility;
 import com.szhrnet.dotcom.view.DialogCustom;
 
 import butterknife.Bind;
@@ -50,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (isShowStatusBar()) {
+            Utility.setStatusBar(this, ContextCompat.getColor(this, R.color.colorPrimary));
+        }
         ButterKnife.bind(this);
         indicatorViewPager = new IndicatorViewPager(indicatorView, sViewPager);
         indicatorViewPager.setAdapter(new HomePageAdapter(getSupportFragmentManager(), this));
@@ -59,8 +63,11 @@ public class MainActivity extends AppCompatActivity {
         // 设置viewpager保留界面不重新加载的页面数量
         sViewPager.setOffscreenPageLimit(8);
 
-
         checkPhoneStates();
+    }
+
+    private boolean isShowStatusBar() {
+        return true;
     }
 
     private void checkPhoneStates() {
@@ -122,8 +129,8 @@ public class MainActivity extends AppCompatActivity {
 
                             showDownloadProgressDialog();
 
-                            Intent service = new Intent(MainActivity.this, DownloadService.class);
-                            startService(service);
+//                            Intent service = new Intent(MainActivity.this, DownloadService.class);
+//                            startService(service);
                         }
                     }
 
@@ -185,7 +192,8 @@ public class MainActivity extends AppCompatActivity {
     };
 
     //两次返回退出
-    @Override public void onBackPressed() {
+    @Override
+    public void onBackPressed() {
         if (System.currentTimeMillis() - lastTime < 2000) {
             finishMainActivity();
         } else {

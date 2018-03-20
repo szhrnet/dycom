@@ -5,7 +5,6 @@ import android.app.Application;
 import com.shizhefei.logger.LogLevel;
 import com.shizhefei.logger.LogUtils;
 import com.szhrnet.dotcom.utils.OkHttpCustomUtil;
-import com.szhrnet.dotcom.utils.PicassoUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import okhttp3.OkHttpClient;
@@ -34,8 +33,6 @@ public class MyApplication extends Application {
         OkHttpClient instance = OkHttpCustomUtil.getInstance();
         //网络请求框架
         OkHttpUtils.initClient(instance);
-        //图片加载框架
-        PicassoUtils.initPicassoWithoutSecurity(mContext, instance);
 
     }
 

@@ -2,11 +2,129 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <com.szhrnet.dotcom.view.ETitleBar
         android:id="@+id/e_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/text"
+            style="@style/login_register"
+            android:layout_width="60dp"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:gravity="right|center"
+            android:text="手机" />
+
+        <EditText
+            android:id="@+id/et_phone"
+            style="@style/login_register_edit"
+            android:layout_toRightOf="@id/text"
+            android:background="@null"
+            android:hint="请输入您的手机号码"
+            android:inputType="phone"
+            android:maxLength="11" />
+    </RelativeLayout>
+
+    <View style="@style/horviewstyle" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/text2"
+            style="@style/login_register"
+            android:layout_width="60dp"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:gravity="right|center"
+            android:text="验证码" />
+
+        <EditText
+            android:id="@+id/et_verify"
+            style="@style/login_register_edit"
+            android:layout_toRightOf="@id/text2"
+            android:background="@null"
+            android:hint="输入刚收到的手机验证码"
+            android:inputType="number"
+            android:maxLength="6" />
+
+        <TextView
+            android:id="@+id/tv_send"
+            style="@style/login_register"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="@dimen/dp_10"
+            android:background="@drawable/common_gray_bg"
+            android:padding="@dimen/dp_5"
+            android:text="发送验证码"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <View style="@style/horviewstyle" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/text3"
+            style="@style/login_register"
+            android:layout_width="60dp"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:gravity="right|center"
+            android:text="密码" />
+
+        <EditText
+            android:id="@+id/et_psw"
+            style="@style/login_register_edit"
+            android:layout_toRightOf="@id/text3"
+            android:background="@null"
+            android:hint="请输入您的密码"
+            android:inputType="textPassword" />
+    </RelativeLayout>
+
+    <View style="@style/horviewstyle" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/text4"
+            style="@style/login_register"
+            android:layout_width="60dp"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:gravity="right|center"
+            android:text="重复密码" />
+
+        <EditText
+            android:id="@+id/et_psw_again"
+            style="@style/login_register_edit"
+            android:layout_toRightOf="@id/text4"
+            android:background="@null"
+            android:hint="请重复您的密码"
+            android:inputType="textPassword" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_register"
+        style="@style/common_botton_bg"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginRight="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_25"
+        android:text="注册" />
 
 </LinearLayout>

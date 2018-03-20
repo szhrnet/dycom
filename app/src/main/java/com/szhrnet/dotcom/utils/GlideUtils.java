@@ -1,6 +1,7 @@
 package com.szhrnet.dotcom.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -21,7 +22,7 @@ public class GlideUtils {
     /**
      * 加载普通图片
      */
-    public static void loadViewHolder(Activity mContext, String path, ImageView mImageView) {
+    public static void loadViewHolder(Context mContext, String path, ImageView mImageView) {
         RequestOptions requestOptions = new RequestOptions()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.mipmap.ic_img_failed)  //指定加载前显示的图片资源

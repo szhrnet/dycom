@@ -2,15 +2,25 @@
 <resources>
     //主题色
     <color name="colorPrimary">#003B97</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryDark">#1E55A8</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="white">#ffffff</color>
+    <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="red">#E40011</color>
+    //红色
+    <color name="red">#FF0000</color>
+
+    //橙色
+    <color name="orange">#FF7E00</color>
+
+    //绿色
+    <color name="green">#1DAC14</color>
 
     //主背景色
-    <color name="main_bg">#F0F0F0</color>
+    <color name="main_bg">#E9E9E9</color>
 
-    //分割线
-    <color name="divider">#eeeeee</color>
+    //灰色
+    <color name="gray">#888888</color>
+
+    //流式布局字背景色
+    <color name="flow_color">#E8E8E8</color>
 </resources>
