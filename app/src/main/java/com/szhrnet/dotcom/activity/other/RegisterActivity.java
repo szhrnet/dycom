@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.szhrnet.dotcom.R;
 import com.szhrnet.dotcom.activity.BaseActivity;
 import com.szhrnet.dotcom.bean.BaseResponseBean;
+import com.szhrnet.dotcom.bean.other.RegisterBean;
 import com.szhrnet.dotcom.constant.NetConstant;
 import com.szhrnet.dotcom.constant.StringConstant;
 import com.szhrnet.dotcom.utils.CountDownUtil;
@@ -16,6 +17,7 @@ import com.szhrnet.dotcom.utils.GsonUtils;
 import com.szhrnet.dotcom.utils.HttpUtils;
 import com.szhrnet.dotcom.utils.MyToast;
 import com.szhrnet.dotcom.utils.NetCallback;
+import com.szhrnet.dotcom.utils.SPUtil;
 import com.szhrnet.dotcom.utils.StringUtils;
 
 import java.util.HashMap;
@@ -43,6 +45,7 @@ public class RegisterActivity extends BaseActivity {
 
     //验证码**秒过期
     private static final long TIME_OUT = 60 * 1000l;
+    private String flag;
 
     @Override
     protected String initTitle() {
@@ -56,7 +59,7 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     protected void initEvent() {
-
+        flag = getIntent().getStringExtra(StringConstant.ARG1);
     }
 
     @Override
@@ -102,11 +105,44 @@ public class RegisterActivity extends BaseActivity {
                     return;
                 } else {
                     //注册
-//                    register();
+                    if (!TextUtils.isEmpty(flag) && flag.equals("forget")) {
+                        register(phone, psw, verify, NetConstant.RESETPWD);
+                    } else {
+                        register(phone, psw, verify, NetConstant.DOREGISTER);
+                    }
                 }
                 MyToast.showToast(RegisterActivity.this, "注册");
                 break;
         }
+    }
+
+    private void register(String phone, String psw, String verify, String url) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("user_mobile", phone);
+        params.put("user_pwd", psw);
+        params.put("validate_code", verify);
+        params.put("user_client_id", 1);
+        HttpUtils.httpPostForm(this, TAG_ACTIVITY, url, params, new NetCallback<BaseResponseBean<RegisterBean>>() {
+            @Override
+            public BaseResponseBean<RegisterBean> parseNetworkResponse(String response) throws Exception {
+                return GsonUtils.GsonToNetObject(response, RegisterBean.class);
+            }
+
+            @Override
+            public void onError(Call call, Exception e) {
+
+            }
+
+            @Override
+            public void onResponse(BaseResponseBean<RegisterBean> response) {
+                if (response.getCode() == StringConstant.RESPONCE_OK) {
+                    SPUtil.put(StringConstant.USERID, response.getData().getUser_id());
+                    SPUtil.put(StringConstant.TOKEN, response.getData().getUser_token());
+                    finish();
+                }
+                MyToast.showToast(RegisterActivity.this, response.getMsg());
+            }
+        });
     }
 
     private void getVerify(String phone) {
@@ -129,7 +165,7 @@ public class RegisterActivity extends BaseActivity {
             public void onResponse(BaseResponseBean response) {
                 if (response.getCode() == StringConstant.RESPONCE_OK) {
                 }
-                    MyToast.showToast(RegisterActivity.this,response.getMsg());
+                MyToast.showToast(RegisterActivity.this, response.getMsg());
             }
         });
     }

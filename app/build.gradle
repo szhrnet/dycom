@@ -12,6 +12,12 @@ android {
         versionCode rootProject.ext.appVersionCode
         versionName rootProject.ext.appVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        ndk { //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "arm64-v8a", "x86_64"
+        }
+
+
     }
 
     signingConfigs {
@@ -21,12 +27,12 @@ android {
             storeFile file('../dotcom_release_keystore.jks')
             storePassword 'dotcomrelease'
         }
-//        debug {
-//            keyAlias 'dotcom'
-//            keyPassword 'dotcomdebug'
-//            storeFile file('../dotcom_debug_keystore.jks')
-//            storePassword 'dotcomdebug'
-//        }
+        debug {
+            keyAlias 'dotcom'
+            keyPassword 'dotcomdebug'
+            storeFile file('../dotcom_debug_keystore.jks')
+            storePassword 'dotcomdebug'
+        }
     }
 
     buildTypes {
@@ -34,7 +40,7 @@ android {
             //资源文件压缩
             shrinkResources true
             //代码开启混淆
-            minifyEnabled true
+            minifyEnabled false
             //混淆文件位置： 第一个：系统默认混淆文件。第二个：自定义混淆文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
@@ -54,12 +60,12 @@ android {
 }
 
 dependencies {
-
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     //noinspection GradleCompatible
+    compile "com.android.support:support-v4:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support.constraint:constraint-layout:$rootProject.ext.constraintVersion"
     testCompile "junit:junit:$rootProject.ext.junitVersion"
@@ -73,4 +79,10 @@ dependencies {
     compile "com.github.bumptech.glide:glide:$rootProject.ext.glideVersion"
     //流式布局
     compile 'com.hyman:flowlayout-lib:1.1.2'
+    //3D地图
+    //    compile 'com.amap.api:3dmap:latest.integration'
+    //导航
+    compile 'com.amap.api:navi-3dmap:latest.integration'
+    //定位
+    compile 'com.amap.api:location:latest.integration'
 }

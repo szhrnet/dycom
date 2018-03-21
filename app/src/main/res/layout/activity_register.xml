@@ -92,7 +92,8 @@
             android:layout_toRightOf="@id/text3"
             android:background="@null"
             android:hint="请输入您的密码"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:maxLength="20" />
     </RelativeLayout>
 
     <View style="@style/horviewstyle" />
@@ -116,7 +117,8 @@
             android:layout_toRightOf="@id/text4"
             android:background="@null"
             android:hint="请重复您的密码"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:maxLength="20" />
     </RelativeLayout>
 
     <TextView

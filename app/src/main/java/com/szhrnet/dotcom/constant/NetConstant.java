@@ -10,7 +10,7 @@ public class NetConstant {
     /**
      * 默认根目录
      */
-    public static String ROOT_URL = "http:// 120.78.213.72";
+    public static String ROOT_URL = "http://120.78.213.72";
 
     //============================个人中心==================================
     /**

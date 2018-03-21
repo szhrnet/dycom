@@ -5,6 +5,8 @@ import android.os.Handler;
 import com.szhrnet.dotcom.R;
 import com.szhrnet.dotcom.activity.BaseActivity;
 import com.szhrnet.dotcom.activity.MainActivity;
+import com.szhrnet.dotcom.constant.StringConstant;
+import com.szhrnet.dotcom.utils.SPUtil;
 
 /**
  * Created by ${CL} on 2018/3/19.
@@ -21,7 +23,11 @@ public class SplashActivity extends BaseActivity {
     };
 
     private void goToMainActivity() {
-        toOtherActivity(MainActivity.class);
+        if (SPUtil.getBoolean(StringConstant.LOGIN)) {
+            toOtherActivity(MainActivity.class);
+        } else {
+            toOtherActivity(LoginActivity.class);
+        }
     }
 
     @Override

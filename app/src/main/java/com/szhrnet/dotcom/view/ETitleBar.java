@@ -87,6 +87,12 @@ public class ETitleBar extends RelativeLayout {
         mLineHeight = this.getResources().getDimensionPixelSize(R.dimen.dp_1);
     }
 
+    /**
+     * 设置左侧图标
+     */
+    public void setLeftImage(int id) {
+        mBackImageView.setImageResource(id);
+    }
 
     /**
      * 是否显示返回图标
