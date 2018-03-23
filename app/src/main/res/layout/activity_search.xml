@@ -70,6 +70,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10"
         android:text="热门搜索"
         android:textColor="@color/gray"
         android:textSize="@dimen/sp_14" />
@@ -85,6 +86,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:padding="@dimen/dp_10"
         android:text="历史记录"
         android:textColor="@color/gray"
         android:textSize="@dimen/sp_14" />

@@ -1,5 +1,6 @@
 package com.szhrnet.dotcom.fragment;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
@@ -7,21 +8,28 @@ import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.szhrnet.dotcom.R;
+import com.szhrnet.dotcom.activity.home.SearchResultActivity;
 import com.szhrnet.dotcom.adapter.assort.AssortLeftAdapter;
 import com.szhrnet.dotcom.adapter.assort.AssortTopAdapter;
 import com.szhrnet.dotcom.adapter.assort.AssortmentAdapter;
 import com.szhrnet.dotcom.bean.BaseResponseBean;
 import com.szhrnet.dotcom.bean.assort.AssortBase;
 import com.szhrnet.dotcom.bean.assort.AssortGoods;
+import com.szhrnet.dotcom.bean.assort.AssortGoodsThree;
 import com.szhrnet.dotcom.bean.assort.AssortGoodsTwo;
+import com.szhrnet.dotcom.bean.assort.AssortTopBean;
+import com.szhrnet.dotcom.bean.home.Goods;
 import com.szhrnet.dotcom.constant.NetConstant;
 import com.szhrnet.dotcom.constant.StringConstant;
 import com.szhrnet.dotcom.utils.GsonUtils;
 import com.szhrnet.dotcom.utils.HttpUtils;
+import com.szhrnet.dotcom.utils.ListUtils;
 import com.szhrnet.dotcom.utils.NetCallback;
+import com.szhrnet.dotcom.utils.SPUtil;
 import com.szhrnet.dotcom.view.ExpandGridView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
@@ -45,6 +53,8 @@ public class AssortmentFragment extends BaseFragment implements AdapterView.OnIt
     private AssortLeftAdapter listAdapter;
     private List<String> stringList;
     private List<AssortGoods> assortGoodsList;
+    private List<AssortGoodsThree> datasTop;
+    private List<AssortGoodsTwo> datasRight;
 
     @Override
     protected int getChildLayoutRes() {
@@ -58,26 +68,76 @@ public class AssortmentFragment extends BaseFragment implements AdapterView.OnIt
 
     @Override
     protected void initEvent() {
-        adapterTop = new AssortTopAdapter(getActivity(), R.layout.item_assort);
+        datasTop = new ArrayList<>();
+        adapterTop = new AssortTopAdapter(getActivity(), R.layout.item_assort, datasTop);
         gridViewTop.setAdapter(adapterTop);
 
-
-        adapterRight = new AssortmentAdapter(getActivity(), R.layout.item_assort);
+        datasRight = new ArrayList<>();
+        adapterRight = new AssortmentAdapter(getActivity(), R.layout.item_assort, datasRight);
         gridviewRight.setAdapter(adapterRight);
 
         stringList = new ArrayList<>();
-        listAdapter = new AssortLeftAdapter(getActivity(), R.layout.item_text);
+        listAdapter = new AssortLeftAdapter(getActivity(), R.layout.item_text, stringList);
         listViewLeft.setAdapter(listAdapter);
         listViewLeft.setOnItemClickListener(this);
+
+        gridViewTop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                toSearchResultActivity(position);
+            }
+        });
+
+        gridviewRight.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                toSearchResultActivity(position);
+            }
+        });
+    }
+
+    private void toSearchResultActivity(int position) {
+        Integer gt_id = datasTop.get(position).getGt_id();
+        Intent intent = new Intent(getActivity(), SearchResultActivity.class);
+        intent.putExtra(StringConstant.ARG1, "assort");
+        intent.putExtra("gt_id", gt_id);
+        toOtherActivity(intent);
     }
 
     @Override
     protected void initData() {
+        //获取商品分类
         getGoodsAssort();
+        //获取销量排行
+        getSoleSort();
+    }
+
+    private void getSoleSort() {
+        HttpUtils.httpGet(mContext, TAG_FRAGMENT, NetConstant.GETSALESRANK, null, new NetCallback<BaseResponseBean<AssortTopBean>>() {
+            @Override
+            public BaseResponseBean<AssortTopBean> parseNetworkResponse(String response) throws Exception {
+                return GsonUtils.GsonToNetObject(response, AssortTopBean.class);
+            }
+
+            @Override
+            public void onError(Call call, Exception e) {
+
+            }
+
+            @Override
+            public void onResponse(BaseResponseBean<AssortTopBean> response) {
+                if (response.getCode() == StringConstant.RESPONCE_OK) {
+                    if (!ListUtils.isEmpty(response.getData().getList())) {
+                        datasTop.addAll(response.getData().getList());
+                        adapterTop.notifyDataSetChanged();
+                    }
+                }
+            }
+        });
     }
 
     private void getGoodsAssort() {
-        HttpUtils.httpGet(getActivity(), TAG_FRAGMENT, NetConstant.GETGOODSTYPELIST, null, new NetCallback<BaseResponseBean<AssortBase>>() {
+        HttpUtils.httpGet(mContext, TAG_FRAGMENT, NetConstant.GETGOODSTYPELIST, null, new NetCallback<BaseResponseBean<AssortBase>>() {
             @Override
             public BaseResponseBean<AssortBase> parseNetworkResponse(String response) throws Exception {
                 return GsonUtils.GsonToNetObject(response, AssortBase.class);
@@ -93,8 +153,10 @@ public class AssortmentFragment extends BaseFragment implements AdapterView.OnIt
                 if (response.getCode() == StringConstant.RESPONCE_OK) {
                     AssortBase data = response.getData();
                     assortGoodsList = data.getList();
-                    setLeft(assortGoodsList);
-
+                    if (!ListUtils.isEmpty(assortGoodsList)) {
+                        setLeft(assortGoodsList);
+                        setRight(0);
+                    }
                 }
             }
         });
@@ -104,13 +166,23 @@ public class AssortmentFragment extends BaseFragment implements AdapterView.OnIt
         for (int i = 0; i < list.size(); i++) {
             stringList.add(list.get(i).getGt_name());
         }
-        listAdapter.setStringList(stringList);
+        listAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        AssortGoods assortGoods = assortGoodsList.get(position);
-        List<AssortGoodsTwo> goods_type_child_1 = assortGoods.getGoods_type_child_1();
+        listAdapter.setSelectItem(position);
+        listAdapter.notifyDataSetChanged();
+        setRight(position);
+    }
 
+    private void setRight(int position) {
+        AssortGoods assortGoods = assortGoodsList.get(position);
+        List<AssortGoodsTwo> goods_type_child_1 = assortGoods.getGoods_type_child();
+        if (!ListUtils.isEmpty(goods_type_child_1)) {
+            datasRight.clear();
+            datasRight.addAll(goods_type_child_1);
+            adapterRight.notifyDataSetChanged();
+        }
     }
 }

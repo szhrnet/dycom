@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lxhRatingBar="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_8"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/sp_14"
+            tools:text="111" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_toRightOf="@id/tv_user"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/sp_14"
+            tools:text="9999999" />
+
+        <com.szhrnet.dotcom.view.XRatingBar
+            android:id="@+id/ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_8"
+            lxhRatingBar:canEdit="false"
+            lxhRatingBar:countSelected="0"
+            lxhRatingBar:differentSize="false"
+            lxhRatingBar:dividerWidth="5dp"
+            lxhRatingBar:starCount="5"
+            lxhRatingBar:stateResId="@drawable/comment_ratingbar_selector"
+            lxhRatingBar:widthAndHeight="12dp"
+
+            />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:paddingLeft="@dimen/dp_8"
+        android:paddingRight="@dimen/dp_8"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp_14"
+        tools:text="1111" />
+
+    <com.szhrnet.dotcom.view.ExpandGridView
+        android:id="@+id/gridview"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:listSelector="#00000000"
+        android:numColumns="3"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_seeAll"
+        android:layout_width="80dp"
+        android:layout_height="25dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="@dimen/dp_8"
+        android:background="@drawable/gray_stoke_bg"
+        android:gravity="center"
+        android:text="全部评价"
+        android:textColor="@color/gray" />
+
+</LinearLayout>

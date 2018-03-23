@@ -21,8 +21,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public final String TAG_ACTIVITY = this.getClass().getName();
 
-    @Bind(R.id.e_title)
-    protected ETitleBar etitle;
 
     protected abstract String initTitle();
 
@@ -51,7 +49,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         ButterKnife.bind(this);
 
-        etitle.setTitle(initTitle());
         initEvent();
         initData();
 

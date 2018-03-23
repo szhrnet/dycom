@@ -18,6 +18,7 @@ import com.szhrnet.dotcom.utils.HttpUtils;
 import com.szhrnet.dotcom.utils.MyToast;
 import com.szhrnet.dotcom.utils.NetCallback;
 import com.szhrnet.dotcom.utils.SPUtil;
+import com.szhrnet.dotcom.view.ETitleBar;
 
 import java.util.HashMap;
 
@@ -38,6 +39,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     TextView forgetPswTextView;
     @Bind(R.id.tv_login)
     TextView loginTextView;
+    @Bind(R.id.e_title)
+    protected ETitleBar etitle;
 
     @Override
     protected String initTitle() {

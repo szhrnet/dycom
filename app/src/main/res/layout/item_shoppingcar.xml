@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="120dp"
+    android:id="@+id/ll_goods"
     android:orientation="horizontal">
 
     <CheckBox
@@ -14,6 +15,7 @@
         android:layout_marginLeft="@dimen/dp_8" />
 
     <ImageView
+        android:id="@+id/iv_goods"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center_vertical"
@@ -43,11 +45,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/ll_edit"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -65,12 +67,11 @@
                 android:scaleType="center"
                 android:src="@mipmap/ic_home_gwjian" />
 
-            <EditText
+            <TextView
                 android:id="@+id/edit_text_beishu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@null"
                 android:gravity="center"
                 android:inputType="number"
                 android:maxLength="11"
@@ -78,7 +79,7 @@
                 android:padding="3dp"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp_14"
-                tools:text="3" />
+                tools:text="1" />
 
             <ImageView
                 android:id="@+id/image_view_add_bei_shu"
@@ -91,6 +92,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_delete"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@color/red"

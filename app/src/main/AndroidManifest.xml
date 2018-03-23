@@ -57,6 +57,7 @@
         <activity android:name=".activity.other.RegisterActivity" />
         <activity android:name=".activity.home.SearchActivity" />
         <activity android:name=".activity.home.SearchResultActivity" />
+        <activity android:name=".activity.home.GoodsDetailActivity" />
 
         <service android:name=".service.DownloadService" />
 

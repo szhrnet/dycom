@@ -8,13 +8,13 @@ import java.util.List;
 
 public class CarGoods {
 
-    private List<CarGoodList> list;
+    private List<CarGoodses> list;
 
-    public List<CarGoodList> getList() {
+    public List<CarGoodses> getList() {
         return list;
     }
 
-    public void setList(List<CarGoodList> list) {
+    public void setList(List<CarGoodses> list) {
         this.list = list;
     }
 

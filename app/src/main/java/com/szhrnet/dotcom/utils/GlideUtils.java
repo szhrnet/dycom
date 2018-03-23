@@ -34,6 +34,20 @@ public class GlideUtils {
     }
 
     /**
+     * 加载本地普通图片
+     */
+    public static void loadViewHolderLocal(Context mContext, int path, ImageView mImageView) {
+        RequestOptions requestOptions = new RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.mipmap.ic_img_failed)  //指定加载前显示的图片资源
+                .fallback(R.mipmap.ic_img_failed)//指定传递加载资源为 null 的时候，显示的图片资源
+                .error(R.mipmap.ic_img_failed);//指定加载失败显示的图片资源
+
+        Glide.with(mContext).load(path).apply(requestOptions).into(mImageView);
+
+    }
+
+    /**
      * 加载圆形头像
      */
     public static void loadCustomerViewHolder(final Activity activity, String path, final ImageView mImageView) {

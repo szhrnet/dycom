@@ -1,5 +1,7 @@
 package com.szhrnet.dotcom.utils;
 
+import com.shizhefei.logger.LogUtils;
+
 import okhttp3.Call;
 
 /**
@@ -8,26 +10,29 @@ import okhttp3.Call;
 
 public interface NetCallback<T> {
 
-  public abstract T parseNetworkResponse(String response) throws Exception;
+    public abstract T parseNetworkResponse(String response) throws Exception;
 
-  public abstract void onError(Call call, Exception e);
+    public abstract void onError(Call call, Exception e);
 
-  public abstract void onResponse(T response);
+    public abstract void onResponse(T response);
 
-  //public abstract void onProgress(float progress, long total);
+    //public abstract void onProgress(float progress, long total);
 
-  public static final class DefaultNetCallback implements NetCallback {
+    public static final class DefaultNetCallback implements NetCallback {
 
-    @Override public Object parseNetworkResponse(String response) throws Exception {
-      return null;
+        @Override
+        public Object parseNetworkResponse(String response) throws Exception {
+            return null;
+        }
+
+        @Override
+        public void onError(Call call, Exception e) {
+
+        }
+
+        @Override
+        public void onResponse(Object response) {
+
+        }
     }
-
-    @Override public void onError(Call call, Exception e) {
-
-    }
-
-    @Override public void onResponse(Object response) {
-
-    }
-  }
 }

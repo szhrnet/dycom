@@ -12,7 +12,7 @@ public class AssortGoods {
 
     private String gt_name;
 
-    private List<AssortGoodsTwo> goods_type_child_1;
+    private List<AssortGoodsTwo> goods_type_child;
 
     public Integer getGt_id() {
         return gt_id;
@@ -30,11 +30,11 @@ public class AssortGoods {
         this.gt_name = gt_name;
     }
 
-    public List<AssortGoodsTwo> getGoods_type_child_1() {
-        return goods_type_child_1;
+    public List<AssortGoodsTwo> getGoods_type_child() {
+        return goods_type_child;
     }
 
-    public void setGoods_type_child_1(List<AssortGoodsTwo> goods_type_child_1) {
-        this.goods_type_child_1 = goods_type_child_1;
+    public void setGoods_type_child(List<AssortGoodsTwo> goods_type_child) {
+        this.goods_type_child = goods_type_child;
     }
 }

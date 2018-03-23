@@ -1,24 +1,31 @@
 package com.szhrnet.dotcom.fragment;
 
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.cundong.recyclerview.EndlessRecyclerOnScrollListener;
+import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
+import com.cundong.recyclerview.HeaderSpanSizeLookup;
+import com.shizhefei.logger.LogUtils;
 import com.shizhefei.view.indicator.BannerComponent;
 import com.shizhefei.view.indicator.Indicator;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.szhrnet.dotcom.R;
 import com.szhrnet.dotcom.activity.home.SearchActivity;
+import com.szhrnet.dotcom.adapter.home.DataAdapter;
 import com.szhrnet.dotcom.adapter.home.HomeAdapter;
 import com.szhrnet.dotcom.bean.BaseResponseBean;
 import com.szhrnet.dotcom.bean.home.Goods;
@@ -30,9 +37,13 @@ import com.szhrnet.dotcom.constant.StringConstant;
 import com.szhrnet.dotcom.utils.GlideUtils;
 import com.szhrnet.dotcom.utils.GsonUtils;
 import com.szhrnet.dotcom.utils.HttpUtils;
+import com.szhrnet.dotcom.utils.ListUtils;
 import com.szhrnet.dotcom.utils.MyToast;
 import com.szhrnet.dotcom.utils.NetCallback;
+import com.szhrnet.dotcom.utils.SPUtil;
 import com.szhrnet.dotcom.utils.SP_System_Util;
+import com.szhrnet.dotcom.view.sample.utils.RecyclerViewStateUtils;
+import com.szhrnet.dotcom.view.sample.weight.LoadingFooter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,7 +76,7 @@ public class HomeFragment extends BaseFragment {
     @Bind(R.id.iv_image2)
     ImageView image2ImageView;
     @Bind(R.id.recycler)
-    ListView recyclerView;
+    RecyclerView mRecyclerView;
     @Bind(R.id.et_search)
     TextView searchEditText;
     private HomeAdapter adapter;
@@ -83,33 +94,12 @@ public class HomeFragment extends BaseFragment {
     public AMapLocationClient mLocationClient = null;
     //声明AMapLocationClientOption对象
     public AMapLocationClientOption mLocationOption = null;
-    //声明定位回调监听器
-    public AMapLocationListener mLocationListener = new AMapLocationListener() {
-        @Override
-        public void onLocationChanged(AMapLocation amapLocation) {
-            String province = amapLocation.getProvince();//省信息
-            String city = amapLocation.getCity();//城市信息
-            String district = amapLocation.getDistrict();//城区信息
-            double latitude = amapLocation.getLatitude();//获取纬度
-            double longitude = amapLocation.getLongitude();//获取经度
-            //地区编码
-            adCode = amapLocation.getAdCode();
-            String location = null;
-            if (!TextUtils.isEmpty(province) && !TextUtils.isEmpty(city) && !TextUtils.isEmpty(district)) {
-                location = province + "." + city + "." + district;
-                SP_System_Util.put(StringConstant.LOCATION, location);
-                locationTextView.setText(location);
-                mLocationClient.stopLocation();
-            }
-            if (!TextUtils.isEmpty(adCode)) {
-                SP_System_Util.put(StringConstant.ADCODE, adCode);
-            }
-//            LogUtils.e(amapLocation.toString());
-        }
-    };
+
     private String adCode;
 
     private boolean last;
+    private DataAdapter mDataAdapter;
+    private HeaderAndFooterRecyclerViewAdapter mHeaderAndFooterRecyclerViewAdapter;
 
     @Override
     protected int getChildLayoutRes() {
@@ -123,35 +113,61 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initEvent() {
-//        String sha1 = StringUtils.sHA1(getApplicationContext());
-//        LogUtils.e(sha1);
-        //初始化AMapLocationClientOption对象
-        mLocationOption = new AMapLocationClientOption();
-        //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式。
-        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
         String location = SP_System_Util.getString(StringConstant.LOCATION);
         if (!TextUtils.isEmpty(location)) {
             locationTextView.setText(location);
         }
-        if (!TextUtils.isEmpty(adCode)) {
-
-        }
+        //定位
         initPosition();
-
+        //推荐商品设置
         datas = new ArrayList<>();
-//        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        adapter = new HomeAdapter(datas);
-        recyclerView.setAdapter(adapter);
-
-
-//        viewPager.setOffscreenPageLimit(5);
+        mDataAdapter = new DataAdapter(mContext, mRecyclerView);
+        mDataAdapter.addAll(datas);
+        mHeaderAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(mDataAdapter);
+        mRecyclerView.setAdapter(mHeaderAndFooterRecyclerViewAdapter);
+        //setLayoutManager
+        GridLayoutManager manager = new GridLayoutManager(mContext, 2);
+        manager.setSpanSizeLookup(new HeaderSpanSizeLookup((HeaderAndFooterRecyclerViewAdapter) mRecyclerView.getAdapter(), manager.getSpanCount()));
+        mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.addOnScrollListener(mOnScrollListener);
+        //轮播图设置
+        viewPager.setOffscreenPageLimit(4);
         bannerComponent = new BannerComponent(indicator, viewPager, false);
         adAdapter = new BannerAdapter();
         bannerComponent.setAdapter(adAdapter);
         bannerComponent.setAutoPlayTime(3000);
+        bannerComponent.startAutoPlay();
     }
 
+    private EndlessRecyclerOnScrollListener mOnScrollListener = new EndlessRecyclerOnScrollListener() {
+
+        @Override
+        public void onLoadNextPage(View view) {
+            super.onLoadNextPage(view);
+
+            LoadingFooter.State state = RecyclerViewStateUtils.getFooterViewState(mRecyclerView);
+            if (state == LoadingFooter.State.Loading) {
+                Log.d("@Cundong", "the state is Loading, just wait..");
+                return;
+            }
+            if (!last) {
+                // loading more
+                RecyclerViewStateUtils.setFooterViewState(getActivity(), mRecyclerView, REQUEST_COUNT, LoadingFooter.State.Loading, null);
+//                requestData();
+                page++;
+                getTuijianGoods();
+            } else {
+                //the end
+                RecyclerViewStateUtils.setFooterViewState(getActivity(), mRecyclerView, REQUEST_COUNT, LoadingFooter.State.TheEnd, null);
+            }
+        }
+    };
+
     private void initPosition() {
+        //初始化AMapLocationClientOption对象
+        mLocationOption = new AMapLocationClientOption();
+        //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式。
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
         //初始化定位
         mLocationClient = new AMapLocationClient(getApplicationContext());
         //设置定位回调监听
@@ -162,15 +178,17 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        if (!TextUtils.isEmpty(adCode)) {
-            getBannerData();
+        String adcode = SPUtil.getString(StringConstant.ADCODE);
+        if (!TextUtils.isEmpty(adcode)) {
+            getBannerData(adcode);
             getTuijianGoods();
         }
     }
 
     private void getTuijianGoods() {
+        String adcode = SP_System_Util.getString(StringConstant.ADCODE);
         HashMap<String, Object> params = new HashMap<>();
-        params.put("region_id", adCode);
+        params.put("region_id", adcode);
         params.put("page_size", 10);
         params.put("page", page);
         HttpUtils.httpPostForm(getActivity(), TAG_FRAGMENT, NetConstant.GETINDEXRECOMMENTLIST, params, new NetCallback<BaseResponseBean<HomeGoods>>() {
@@ -187,15 +205,21 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onResponse(BaseResponseBean<HomeGoods> response) {
                 if (response.getCode() == StringConstant.RESPONCE_OK) {
-                    datas.addAll(response.getData().getList());
+                    if (!ListUtils.isEmpty(response.getData().getList())) {
+//                        datas.addAll(response.getData().getList());
+                        mDataAdapter.addAll(response.getData().getList());
+//                        mDataAdapter.notifyDataSetChanged();
+                    }
                     last = response.getData().is_last();
-
+                    if (last) {
+                        MyToast.showToast(mContext, "到底啦");
+                    }
                 }
             }
         });
     }
 
-    private void getBannerData() {
+    private void getBannerData(String adCode) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("region_id", adCode);
         params.put("banner_type", 1);
@@ -216,6 +240,7 @@ public class HomeFragment extends BaseFragment {
                 if (response.getCode() == StringConstant.RESPONCE_OK) {
                     List<HomeBanner> list = response.getData().getList();
                     adAdapter.setDatas(list);
+                    adAdapter.notifyDataSetChanged();
                 }
 
             }
@@ -268,7 +293,6 @@ public class HomeFragment extends BaseFragment {
             ImageView imageView = (ImageView) convertView;
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             GlideUtils.loadViewHolder(container.getContext(), datas.get(position).getBanner_pic(), imageView);
-//            PicassoUtils.LoadImage(container.getContext(), datas.get(position).getPic(), imageView);
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -279,5 +303,32 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
+    //声明定位回调监听器
+    public AMapLocationListener mLocationListener = new AMapLocationListener() {
+        @Override
+        public void onLocationChanged(AMapLocation amapLocation) {
+            String province = amapLocation.getProvince();//省信息
+            String city = amapLocation.getCity();//城市信息
+            String district = amapLocation.getDistrict();//城区信息
+            double latitude = amapLocation.getLatitude();//获取纬度
+            double longitude = amapLocation.getLongitude();//获取经度
+            //地区编码
+            adCode = amapLocation.getAdCode();
+            SP_System_Util.put(StringConstant.ADCODE, adCode);
+            if (!TextUtils.isEmpty(province) && !TextUtils.isEmpty(city) && !TextUtils.isEmpty(district)) {
+                SP_System_Util.put(StringConstant.LOCATION, district);
+                locationTextView.setText(district);
+                mLocationClient.stopLocation();
+            }
+            LogUtils.e(amapLocation.toString());
+            if (!TextUtils.isEmpty(adCode)) {
+
+                //获取轮播图
+                getBannerData(adCode);
+                //推荐
+                getTuijianGoods();
+            }
+        }
+    };
 
 }

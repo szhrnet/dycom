@@ -26,6 +26,15 @@ public abstract class BaseFragment extends LazyFragment {
     @Bind(R.id.e_title)
     ETitleBar etitle;
 
+
+    protected Context mContext;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.mContext = context;
+    }
+
     protected abstract int getChildLayoutRes();
 
     protected abstract String initTitle();

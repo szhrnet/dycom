@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/main_bg"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_goods"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_16" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_8"
+            android:layout_weight="1"
+            android:maxLines="2"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_14"
+            tools:text="111111111111111111111111111111111" />
+
+        <ImageView
+            android:id="@+id/iv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_8"
+            android:src="@mipmap/ic_home_gb" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:text="容量"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_14" />
+
+
+    </LinearLayout>
+
+    <View style="@style/horviewstyle" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:text="口味"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_14" />
+
+
+    </LinearLayout>
+
+    <View style="@style/horviewstyle" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_weight="1"
+            android:text="数量"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_14" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/image_view_remove_bei_shu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="center"
+                android:src="@mipmap/ic_home_gwjian" />
+
+            <TextView
+                android:id="@+id/edit_text_beishu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="11"
+                android:maxLines="1"
+                android:padding="3dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_14"
+                tools:text="1" />
+
+            <ImageView
+                android:id="@+id/image_view_add_bei_shu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="center"
+                android:src="@mipmap/ic_home_gwjia" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View style="@style/horviewstyle" />
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:padding="@dimen/dp_10"
+        android:textSize="@dimen/sp_14"
+        tools:text="11111111" />
+
+    <TextView
+        android:id="@+id/tv_buy"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_20"
+        android:background="@drawable/orange_button_bg"
+        android:gravity="center"
+        android:text="立即购买"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_14"
+        android:layout_marginBottom="@dimen/dp_20"/>
+
+</LinearLayout>

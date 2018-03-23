@@ -1,9 +1,9 @@
 package com.szhrnet.dotcom.utils;
 
-import android.support.compat.BuildConfig;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.szhrnet.dotcom.BuildConfig;
 import com.szhrnet.dotcom.MyApplication;
 
 import java.io.File;

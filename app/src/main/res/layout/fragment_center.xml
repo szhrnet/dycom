@@ -9,215 +9,273 @@
     <com.szhrnet.dotcom.view.ETitleBar
         android:id="@+id/e_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/rl_titlebar"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="44dp"
         android:background="@color/colorPrimary"
-        android:orientation="horizontal">
+        android:gravity="center_vertical">
 
         <ImageView
-            android:id="@+id/iv_head"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/dp_12" />
+            android:id="@+id/iv_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dp_10"
+            android:src="@mipmap/ic_mine_sz" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="我的"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16" />
+
+        <ImageView
+            android:id="@+id/iv_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dp_10"
+            android:src="@mipmap/ic_mine_xx" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/dp_8"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
+                android:background="@color/colorPrimary"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_nick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp_14"
-                    tools:text="111111" />
+                <ImageView
+                    android:id="@+id/iv_head"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dp_12" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_nick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp_14"
+                            tools:text="111111" />
+
+                        <ImageView
+                            android:id="@+id/iv_vip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_4"
+                            android:src="@mipmap/ic_home_vip"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_12"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_14"
+                        tools:text="111111" />
+                </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/iv_vip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_4"
-                    android:src="@mipmap/ic_home_vip"
-                    android:visibility="gone" />
+                    android:id="@+id/iv_erweima"
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/dp_12"
+                    android:src="@mipmap/ic_mine_ewm" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_12"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_14"
-                tools:text="111111" />
+            <RelativeLayout
+                android:id="@+id/rl_zichan"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:text="我的资产"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:src="@mipmap/ic_common_next" />
+
+                <View
+                    style="@style/horviewstyle"
+                    android:layout_alignParentBottom="true" />
+            </RelativeLayout>
+
+            <com.szhrnet.dotcom.view.ExpandGridView
+                android:id="@+id/gridview_top"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/white"
+                android:listSelector="#00000000"
+                android:numColumns="3" />
+
+
+            <RelativeLayout
+                android:id="@+id/rl_order"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:layout_marginTop="@dimen/dp_8"
+                android:background="@color/white">
+
+                <View
+                    style="@style/horviewstyle"
+                    android:layout_alignParentTop="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:text="我的订单"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_4"
+                    android:layout_toLeftOf="@+id/imageView"
+                    android:text="查看更多"
+                    android:textColor="@color/gray" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:src="@mipmap/ic_common_next" />
+
+                <View
+                    style="@style/horviewstyle"
+                    android:layout_alignParentBottom="true" />
+            </RelativeLayout>
+
+            <com.szhrnet.dotcom.view.ExpandGridView
+                android:id="@+id/gridview_center"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/white"
+                android:numColumns="5" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:layout_marginTop="@dimen/dp_8"
+                android:background="@color/white">
+
+                <View
+                    style="@style/horviewstyle"
+                    android:layout_alignParentTop="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:text="会员中心"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_qrz"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:background="@drawable/red_stoke_bg"
+                    android:paddingBottom="@dimen/dp_2"
+                    android:paddingLeft="@dimen/dp_4"
+                    android:paddingRight="@dimen/dp_4"
+                    android:paddingTop="@dimen/dp_2"
+                    android:text="去认证"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/dp_12" />
+
+                <TextView
+                    android:id="@+id/tv_yrz"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:background="@drawable/gray_stoke_bg"
+                    android:paddingBottom="@dimen/dp_2"
+                    android:paddingLeft="@dimen/dp_4"
+                    android:paddingRight="@dimen/dp_4"
+                    android:paddingTop="@dimen/dp_2"
+                    android:text="已认证"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/dp_12"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:src="@mipmap/ic_common_next"
+                    android:visibility="gone" />
+
+                <View
+                    style="@style/horviewstyle"
+                    android:layout_alignParentBottom="true" />
+            </RelativeLayout>
+
+            <com.szhrnet.dotcom.view.ExpandGridView
+                android:id="@+id/gridview_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/white"
+                android:numColumns="4" />
+
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/iv_erweima"
-            android:layout_width="@dimen/dp_40"
-            android:layout_height="@dimen/dp_40"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/dp_12"
-            android:src="@mipmap/ic_mine_ewm" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_zichan"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_45"
-        android:background="@color/white">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_8"
-            android:text="我的资产"
-            android:textColor="@color/black" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dp_8"
-            android:src="@mipmap/ic_common_next" />
-
-        <View
-            style="@style/horviewstyle"
-            android:layout_alignParentBottom="true" />
-    </RelativeLayout>
-
-    <com.szhrnet.dotcom.view.ExpandGridView
-        android:id="@+id/gridview_top"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:numColumns="3" />
-
-
-    <RelativeLayout
-        android:id="@+id/rl_order"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_45"
-        android:layout_marginTop="@dimen/dp_8"
-        android:background="@color/white">
-
-        <View
-            style="@style/horviewstyle"
-            android:layout_alignParentTop="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_8"
-            android:text="我的订单"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dp_4"
-            android:layout_toLeftOf="@+id/imageView"
-            android:text="查看更多"
-            android:textColor="@color/gray" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dp_8"
-            android:src="@mipmap/ic_common_next" />
-
-        <View
-            style="@style/horviewstyle"
-            android:layout_alignParentBottom="true" />
-    </RelativeLayout>
-
-    <com.szhrnet.dotcom.view.ExpandGridView
-        android:id="@+id/gridview_center"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:numColumns="5" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_45"
-        android:layout_marginTop="@dimen/dp_8"
-        android:background="@color/white">
-
-        <View
-            style="@style/horviewstyle"
-            android:layout_alignParentTop="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_8"
-            android:text="会员中心"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:id="@+id/tv_qrz"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dp_8"
-            android:background="@drawable/red_stoke_bg"
-            android:padding="@dimen/dp_2"
-            android:text="去认证"
-            android:textColor="@color/red" />
-
-        <TextView
-            android:id="@+id/tv_yrz"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dp_8"
-            android:background="@drawable/gray_stoke_bg"
-            android:padding="@dimen/dp_2"
-            android:text="已认证"
-            android:textColor="@color/gray"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dp_8"
-            android:src="@mipmap/ic_common_next"
-            android:visibility="gone" />
-
-        <View
-            style="@style/horviewstyle"
-            android:layout_alignParentBottom="true" />
-    </RelativeLayout>
-
-    <com.szhrnet.dotcom.view.ExpandGridView
-        android:id="@+id/gridview_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:numColumns="4" />
-
+    </ScrollView>
 </LinearLayout>

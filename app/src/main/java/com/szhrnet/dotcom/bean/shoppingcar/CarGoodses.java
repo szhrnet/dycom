@@ -4,7 +4,7 @@ package com.szhrnet.dotcom.bean.shoppingcar;
  * Created by ${CL} on 2018/3/21.
  */
 
-public class CarGoodList {
+public class CarGoodses {
 
     private int cart_id;
 
@@ -21,6 +21,16 @@ public class CarGoodList {
     private String sv_id;
 
     private String stylestr;
+
+    private boolean isChecked;
+
+    public boolean isCheck() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean check) {
+        isChecked = check;
+    }
 
     public int getCart_id() {
         return cart_id;

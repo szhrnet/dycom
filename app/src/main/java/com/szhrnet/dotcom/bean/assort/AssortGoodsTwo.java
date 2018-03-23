@@ -12,7 +12,15 @@ public class AssortGoodsTwo {
 
     private String gt_name;
 
-    private List<AssortGoodsThree> goods_type_child_2;
+    private String gt_pic;
+
+    public String getGt_pic() {
+        return gt_pic;
+    }
+
+    public void setGt_pic(String gt_pic) {
+        this.gt_pic = gt_pic;
+    }
 
     public Integer getGt_id() {
         return gt_id;
@@ -30,11 +38,5 @@ public class AssortGoodsTwo {
         this.gt_name = gt_name;
     }
 
-    public List<AssortGoodsThree> getGoods_type_child_2() {
-        return goods_type_child_2;
-    }
 
-    public void setGoods_type_child_2(List<AssortGoodsThree> goods_type_child_2) {
-        this.goods_type_child_2 = goods_type_child_2;
-    }
 }

@@ -9,6 +9,7 @@ public class StringConstant {
     public static final String LOCATION = "location";
     public static final String ADCODE = "adcode";
     public static final String USERID = "user_id";
+    public static final String LEVEL = "level";
     /**
      * 数据初始化判断值。 进入splash界面更改。异常启动时使用
      */
@@ -26,7 +27,7 @@ public class StringConstant {
 
     public static final String ACCOUNT = "account";
 
-//    @Deprecated //暂时不用保存
+    //    @Deprecated //暂时不用保存
     public static final String PSW = "psw";
 
     /**
@@ -90,4 +91,5 @@ public class StringConstant {
 
     public static final String CHECK_PWD = "checkpwd";
 
+    public static final String AUTH = "auth";
 }

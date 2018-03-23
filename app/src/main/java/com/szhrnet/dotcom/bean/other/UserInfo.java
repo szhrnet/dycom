@@ -27,7 +27,7 @@ public class UserInfo {
     //用户级别 1-普通 2-会员
     private int user_level;
     //用户是否认证 0-否 1-是
-    private String user_is_auth;
+    private int user_is_auth;
     private String user_email;
     //所在地名称
     private String region_desc;
@@ -138,11 +138,11 @@ public class UserInfo {
         this.user_level = user_level;
     }
 
-    public String getUser_is_auth() {
+    public int getUser_is_auth() {
         return user_is_auth;
     }
 
-    public void setUser_is_auth(String user_is_auth) {
+    public void setUser_is_auth(int user_is_auth) {
         this.user_is_auth = user_is_auth;
     }
 

@@ -6,9 +6,11 @@
 
     <ImageView
         android:id="@+id/iv_sort_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_16"
+        android:padding="@dimen/dp_5" />
 
     <TextView
         android:id="@+id/tv_sort_item"
@@ -16,7 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/iv_sort_item"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_8"
+        android:text="111"
         android:textColor="@color/black"
         android:textSize="@dimen/sp_14"
         android:visibility="gone" />

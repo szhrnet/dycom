@@ -12,12 +12,15 @@
     <com.szhrnet.dotcom.view.ExpandGridView
         android:id="@+id/gridview"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="100dp"
+        android:background="@color/white"
+        android:listSelector="#00000000"
         android:numColumns="4" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -39,22 +42,29 @@
             android:layout_marginLeft="@dimen/dp_20" />
     </LinearLayout>
 
+    <View style="@style/horviewstyle" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <ListView
             android:id="@+id/listView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:divider="@null"
+            android:scrollbars="none" />
 
         <com.szhrnet.dotcom.view.ExpandGridView
             android:id="@+id/gridview_right"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
+
+            android:listSelector="#00000000"
             android:numColumns="3" />
     </LinearLayout>
 </LinearLayout>
