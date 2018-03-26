@@ -56,7 +56,7 @@ public class DataAdapter extends RecyclerView.Adapter {
 
         GlideUtils.loadViewHolder(context, mDataList.get(position).getProduct_logo(), viewHolder.iv_goods);
         viewHolder.tv_name.setText(mDataList.get(position).getProduct_name());
-        viewHolder.tv_price.setText(String.valueOf(mDataList.get(position).getGoods_price()));
+        viewHolder.tv_price.setText("¥" + String.valueOf(mDataList.get(position).getGoods_price()));
     }
 
     @Override

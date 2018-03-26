@@ -150,13 +150,16 @@ public class HomeFragment extends BaseFragment {
                 Log.d("@Cundong", "the state is Loading, just wait..");
                 return;
             }
+
             if (!last) {
+
                 // loading more
                 RecyclerViewStateUtils.setFooterViewState(getActivity(), mRecyclerView, REQUEST_COUNT, LoadingFooter.State.Loading, null);
 //                requestData();
                 page++;
                 getTuijianGoods();
             } else {
+
                 //the end
                 RecyclerViewStateUtils.setFooterViewState(getActivity(), mRecyclerView, REQUEST_COUNT, LoadingFooter.State.TheEnd, null);
             }
@@ -185,6 +188,8 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
+    private List<Goods> goods;
+
     private void getTuijianGoods() {
         String adcode = SP_System_Util.getString(StringConstant.ADCODE);
         HashMap<String, Object> params = new HashMap<>();
@@ -192,6 +197,8 @@ public class HomeFragment extends BaseFragment {
         params.put("page_size", 10);
         params.put("page", page);
         HttpUtils.httpPostForm(getActivity(), TAG_FRAGMENT, NetConstant.GETINDEXRECOMMENTLIST, params, new NetCallback<BaseResponseBean<HomeGoods>>() {
+
+
             @Override
             public BaseResponseBean<HomeGoods> parseNetworkResponse(String response) throws Exception {
                 return GsonUtils.GsonToNetObject(response, HomeGoods.class);
@@ -207,12 +214,14 @@ public class HomeFragment extends BaseFragment {
                 if (response.getCode() == StringConstant.RESPONCE_OK) {
                     if (!ListUtils.isEmpty(response.getData().getList())) {
 //                        datas.addAll(response.getData().getList());
+                        goods = new ArrayList<>();
+                        goods.addAll(response.getData().getList());
                         mDataAdapter.addAll(response.getData().getList());
 //                        mDataAdapter.notifyDataSetChanged();
                     }
                     last = response.getData().is_last();
                     if (last) {
-                        MyToast.showToast(mContext, "到底啦");
+//                        MyToast.showToast(mContext, "111");
                     }
                 }
             }
@@ -314,20 +323,19 @@ public class HomeFragment extends BaseFragment {
             double longitude = amapLocation.getLongitude();//获取经度
             //地区编码
             adCode = amapLocation.getAdCode();
-            SP_System_Util.put(StringConstant.ADCODE, adCode);
             if (!TextUtils.isEmpty(province) && !TextUtils.isEmpty(city) && !TextUtils.isEmpty(district)) {
                 SP_System_Util.put(StringConstant.LOCATION, district);
                 locationTextView.setText(district);
                 mLocationClient.stopLocation();
             }
-            LogUtils.e(amapLocation.toString());
             if (!TextUtils.isEmpty(adCode)) {
-
+                SP_System_Util.put(StringConstant.ADCODE, adCode);
                 //获取轮播图
                 getBannerData(adCode);
                 //推荐
                 getTuijianGoods();
             }
+
         }
     };
 

@@ -32,7 +32,7 @@ public class DataAdapter2 extends RecyclerView.Adapter {
     private Context context;
     private RecyclerView view;
 
-    public DataAdapter2(Context context,RecyclerView view) {
+    public DataAdapter2(Context context, RecyclerView view) {
         this.context = context;
         this.view = view;
         mLayoutInflater = LayoutInflater.from(context);
@@ -56,7 +56,8 @@ public class DataAdapter2 extends RecyclerView.Adapter {
         viewHolder.checkBox.setVisibility(View.GONE);
         GlideUtils.loadViewHolder(context, mDataList.get(position).getProduct_logo(), viewHolder.iv_goods);
         viewHolder.tv_name.setText(mDataList.get(position).getProduct_name());
-        viewHolder.tv_price.setText(String.valueOf(mDataList.get(position).getGoods_price()));
+        viewHolder.tv_price.setTextColor(context.getResources().getColor(R.color.red));
+        viewHolder.tv_price.setText("¥" + String.valueOf(mDataList.get(position).getGoods_price()));
     }
 
     @Override

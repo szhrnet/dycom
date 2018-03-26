@@ -1,4 +1,4 @@
-package com.szhrnet.dotcom.activity.home;
+package com.szhrnet.dotcom.adapter.home;
 
 import android.content.Context;
 import android.view.View;
@@ -32,6 +32,7 @@ public class CommentAdapter extends CommonAdapter<CommentBean> {
         viewHolder.setText(R.id.tv_time, item.getGc_addtime());
         XRatingBar ratingbar = viewHolder.getView(R.id.ratingbar);
         viewHolder.setText(R.id.tv_content, item.getGc_content());
+        viewHolder.getView(R.id.tv_seeAll).setVisibility(View.GONE);
         ratingbar.setCountSelected(Math.round(item.getGc_star()));
         if (ListUtils.isEmpty(item.getGc_picarr())) {
             gridview.setVisibility(View.GONE);
@@ -39,7 +40,7 @@ public class CommentAdapter extends CommonAdapter<CommentBean> {
             gridview.setVisibility(View.VISIBLE);
         }
 
-        adapter = new ContentPicAdapter(mContext, R.layout.item_assort, item.getGc_picarr());
+        adapter = new ContentPicAdapter(mContext, R.layout.item_comment, item.getGc_picarr());
         gridview.setAdapter(adapter);
     }
 }

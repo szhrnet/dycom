@@ -56,7 +56,9 @@
         </activity>
         <activity android:name=".activity.other.RegisterActivity" />
         <activity android:name=".activity.home.SearchActivity" />
-        <activity android:name=".activity.home.SearchResultActivity" />
+        <activity
+            android:name=".activity.home.SearchResultActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".activity.home.GoodsDetailActivity" />
 
         <service android:name=".service.DownloadService" />
@@ -66,7 +68,8 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="376276a247e36d48249b7b6dce55c4fc"></meta-data>
-            <!--android:value="baf0f7325525d8986975fc067c043cdd"></meta-data>-->1b78423a8bce622c8cb83a7d9420ea4a  // 81ed809daee2c2cb4e5b5d6301955cdc
+        <!--android:value="baf0f7325525d8986975fc067c043cdd"></meta-data>-->
+        1b78423a8bce622c8cb83a7d9420ea4a // 81ed809daee2c2cb4e5b5d6301955cdc
     </application>
 
 

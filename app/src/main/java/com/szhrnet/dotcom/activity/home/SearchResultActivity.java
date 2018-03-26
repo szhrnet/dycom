@@ -1,7 +1,6 @@
 package com.szhrnet.dotcom.activity.home;
 
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -27,6 +26,7 @@ import com.szhrnet.dotcom.utils.HttpUtils;
 import com.szhrnet.dotcom.utils.ListUtils;
 import com.szhrnet.dotcom.utils.NetCallback;
 import com.szhrnet.dotcom.utils.SPUtil;
+import com.szhrnet.dotcom.utils.SP_System_Util;
 import com.szhrnet.dotcom.view.ETitleBar;
 import com.szhrnet.dotcom.view.sample.utils.RecyclerViewStateUtils;
 import com.szhrnet.dotcom.view.sample.weight.LoadingFooter;
@@ -77,6 +77,7 @@ public class SearchResultActivity extends BaseActivity {
     private static final int REQUEST_COUNT = 10;
     //是否到了最后
     private boolean last;
+    private boolean isShow2 = false;
     //    private SearchResultAdapter adapter;
 
     @Override
@@ -91,7 +92,8 @@ public class SearchResultActivity extends BaseActivity {
 
     @Override
     protected void initEvent() {
-        adCode = SPUtil.getString(StringConstant.ADCODE);
+        hideSoftKeyboard();
+        adCode = SP_System_Util.getString(StringConstant.ADCODE);
         from = getIntent().getStringExtra(StringConstant.ARG1);
         search_key = getIntent().getStringExtra("search_key");
         gt_id = getIntent().getIntExtra("gt_id", 0);
@@ -113,14 +115,14 @@ public class SearchResultActivity extends BaseActivity {
         //单例显示
         datas2 = new ArrayList<>();
         mDataAdapter2 = new DataAdapter2(this, recyclerView2);
-        mDataAdapter.addAll(datas2);
+        mDataAdapter2.addAll(datas2);
 
-        mHeaderAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(mDataAdapter);
+        mHeaderAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(mDataAdapter2);
         recyclerView2.setAdapter(mHeaderAndFooterRecyclerViewAdapter);
-        //setLayoutManager
-//        GridLayoutManager manager2 = new GridLayoutManager(this, 1);
-        LinearLayoutManager manager2 = new LinearLayoutManager(this);
-        manager.setSpanSizeLookup(new HeaderSpanSizeLookup((HeaderAndFooterRecyclerViewAdapter) recyclerView2.getAdapter(), manager.getSpanCount()));
+//        setLayoutManager
+        GridLayoutManager manager2 = new GridLayoutManager(this, 1);
+//        LinearLayoutManager manager2 = new LinearLayoutManager(this);
+        manager.setSpanSizeLookup(new HeaderSpanSizeLookup((HeaderAndFooterRecyclerViewAdapter) recyclerView2.getAdapter(), manager2.getSpanCount()));
         recyclerView2.setLayoutManager(manager2);
         recyclerView2.addOnScrollListener(mOnScrollListener);
 
@@ -167,7 +169,17 @@ public class SearchResultActivity extends BaseActivity {
                 }
                 break;
             case R.id.iv_sort:
-
+                if (!isShow2) {
+                    sortImageView.setImageResource(R.mipmap.ic_home_lba);
+                    recyclerView1.setVisibility(View.GONE);
+                    recyclerView2.setVisibility(View.VISIBLE);
+                    isShow2 = true;
+                } else {
+                    sortImageView.setImageResource(R.mipmap.ic_home_lbb);
+                    recyclerView1.setVisibility(View.VISIBLE);
+                    recyclerView2.setVisibility(View.GONE);
+                    isShow2 = false;
+                }
                 break;
         }
     }

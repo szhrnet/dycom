@@ -1,7 +1,6 @@
-package com.szhrnet.dotcom.activity.home;
+package com.szhrnet.dotcom.adapter.home;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.shizhefei.abslistviewadapter.CommonAdapter;

@@ -1,10 +1,12 @@
 package com.szhrnet.dotcom.bean.home;
 
+import java.io.Serializable;
+
 /**
  * Created by ${CL} on 2018/3/21.
  */
 
-public class Goods {
+public class Goods implements Serializable{
 
     private int g_id;
 

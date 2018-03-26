@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -36,6 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dp_8"
             lxhRatingBar:canEdit="false"
             lxhRatingBar:countSelected="0"
@@ -54,8 +57,10 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="2"
+        android:paddingBottom="@dimen/dp_12"
         android:paddingLeft="@dimen/dp_8"
         android:paddingRight="@dimen/dp_8"
+        android:paddingTop="@dimen/dp_5"
         android:textColor="@color/black"
         android:textSize="@dimen/sp_14"
         tools:text="1111" />
@@ -66,7 +71,7 @@
         android:layout_height="60dp"
         android:listSelector="#00000000"
         android:numColumns="3"
-        android:visibility="gone" />
+        android:paddingLeft="@dimen/dp_5" />
 
     <TextView
         android:id="@+id/tv_seeAll"

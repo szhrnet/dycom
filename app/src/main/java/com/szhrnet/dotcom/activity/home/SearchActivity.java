@@ -29,6 +29,7 @@ import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -40,7 +41,7 @@ import okhttp3.Call;
  * Created by ${CL} on 2018/3/20.
  */
 
-public class SearchActivity extends BaseActivity implements TagFlowLayout.OnSelectListener {
+public class SearchActivity extends BaseActivity {
 
     @Bind(R.id.et_search)
     EditText searchEditText;
@@ -58,6 +59,7 @@ public class SearchActivity extends BaseActivity implements TagFlowLayout.OnSele
     private TagAdapter<SearchHis> adapterHis;
     @Bind(R.id.e_title)
     protected ETitleBar etitle;
+    private String text;
 
 
     @Override
@@ -91,15 +93,30 @@ public class SearchActivity extends BaseActivity implements TagFlowLayout.OnSele
             @Override
             public View getView(FlowLayout parent, int position, SearchHis s) {
                 TextView tv = (TextView) LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.textview_flow, hotFlowLayout, false);
+                        .inflate(R.layout.textview_flow, historyFlowLayout, false);
                 tv.setText(s.getSearch_keyword());
                 return tv;
             }
         };
         historyFlowLayout.setAdapter(adapterHis);
         //设置流式布局 item点击
-        hotFlowLayout.setOnSelectListener(this);
-        historyFlowLayout.setOnSelectListener(this);
+
+        hotFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+            @Override
+            public boolean onTagClick(View view, int position, FlowLayout parent) {
+                text = stringsHot.get(position).getSearch_hot_title();
+                doSearch(text);
+                return true;
+            }
+        });
+        historyFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+            @Override
+            public boolean onTagClick(View view, int position, FlowLayout parent) {
+                text = stringsHis.get(position).getSearch_keyword();
+                doSearch(text);
+                return true;
+            }
+        });
     }
 
     @Override
@@ -165,9 +182,21 @@ public class SearchActivity extends BaseActivity implements TagFlowLayout.OnSele
         }
     }
 
-    //流式布局点击回调
-    @Override
-    public void onSelected(Set<Integer> selectPosSet) {
-        doSearch(selectPosSet.toString());
-    }
+//    //流式布局点击回调
+//    @Override
+//    public boolean onTagClick(View view, int position, FlowLayout parent) {
+//        String text = null;
+//        switch (view.getId()) {
+//            case R.id.flowlayout_hot:
+//                text = stringsHot.get(position).getSearch_hot_title();
+//                break;
+//            case R.id.flowlayout_history:
+//                text = stringsHis.get(position).getSearch_keyword();
+//                break;
+//        }
+//        doSearch(text);
+//        return true;
+//    }
+
+
 }

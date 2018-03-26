@@ -5,11 +5,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.szhrnet.dotcom.R;
-import com.szhrnet.dotcom.activity.home.CommentAdapter;
+import com.szhrnet.dotcom.adapter.home.CommentAdapter;
 import com.szhrnet.dotcom.bean.BaseResponseBean;
 import com.szhrnet.dotcom.bean.home.CommentBean;
 import com.szhrnet.dotcom.bean.home.Comments;
-import com.szhrnet.dotcom.bean.home.GoodsDetailBean;
 import com.szhrnet.dotcom.constant.NetConstant;
 import com.szhrnet.dotcom.constant.StringConstant;
 import com.szhrnet.dotcom.fragment.BaseFragment;
@@ -48,15 +47,17 @@ public class Goods3Fragment extends BaseFragment {
     View view2;
     @Bind(R.id.xlistvie)
     XListView xlistvie;
+    @Bind(R.id.tv_sum)
+    TextView tv_sum;
     private CommentAdapter adapter;
-    private List<CommentBean> list;
+    private List<CommentBean> commentBeanList;
 
     private int page = 1;
     //0为全部 1为有图
     private int isAll = 0;
-    private GoodsDetailBean goods;
     private int g_id;
     private List<CommentBean> allList;
+    private boolean is_last;
 
     @Override
     protected int getChildLayoutRes() {
@@ -70,23 +71,45 @@ public class Goods3Fragment extends BaseFragment {
 
     @Override
     protected void initEvent() {
-        goods = (GoodsDetailBean) getArguments().getSerializable("goods");
-        g_id = goods.getGoodsarr().getG_id();
+        g_id = getArguments().getInt("g_id", -1);
 
-        list = new ArrayList<>();
+        commentBeanList = new ArrayList<>();
         allList = new ArrayList<>();
-        adapter = new CommentAdapter(mContext, R.layout.item_pingjia, list);
+        adapter = new CommentAdapter(mContext, R.layout.item_pingjia, commentBeanList);
         xlistvie.setAdapter(adapter);
+        xlistvie.setPullRefreshEnable(false);
+
+        xlistvie.setXListViewListener(new XListView.IXListViewListener() {
+            @Override
+            public void onRefresh() {
+
+            }
+
+            @Override
+            public void onLoadMore() {
+                if (is_last) {
+                    return;
+                } else {
+                    page++;
+                    getComments();
+                }
+            }
+        });
     }
 
     @OnClick({R.id.rl_all, R.id.rl_pic})
     public void click(View view) {
+        commentBeanList.clear();
         switch (view.getId()) {
             case R.id.rl_all:
                 isAll = 0;
+                view1.setVisibility(View.VISIBLE);
+                view2.setVisibility(View.GONE);
                 break;
             case R.id.rl_pic:
                 isAll = 1;
+                view1.setVisibility(View.GONE);
+                view2.setVisibility(View.VISIBLE);
                 break;
         }
         getComments();
@@ -119,12 +142,12 @@ public class Goods3Fragment extends BaseFragment {
                 if (response.getCode() == StringConstant.RESPONCE_OK) {
                     Comments data = response.getData();
                     List<CommentBean> list = data.getList();
-                    if (!data.isIs_last()) {
-                        page++;
-                    }
-
+                    is_last = data.isIs_last();
+                    tv_sum.setText("全部评论(" + data.getGc_comment_cnt() + ")");
+                    ratingbar.setCountSelected(Math.round(data.getGc_pingfen()));
+                    tv_fenshu.setText(String.valueOf(data.getGc_pingfen()) + "分");
                     if (!ListUtils.isEmpty(list)) {
-                        list.addAll(list);
+                        commentBeanList.addAll(list);
                         adapter.notifyDataSetChanged();
                     }
                 }
